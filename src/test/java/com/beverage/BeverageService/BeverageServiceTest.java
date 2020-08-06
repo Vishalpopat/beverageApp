@@ -20,6 +20,18 @@ public class BeverageServiceTest {
 		assertEquals(11.5, calculateTotalPrice, 0.0);
 	}
 	
+	@Test
+	public void duplicateIngredientTest() {
+		double calculateTotalPrice = beverageService.calculateTotalPrice("[\"Chai, -sugar, -sugar\", \"Chai\", \"Coffee, -milk, -milk\"]");
+		assertEquals(11.5, calculateTotalPrice, 0.0);
+	}
+	
+	@Test
+	public void ingredientNotUsedInItemTest() {
+		double calculateTotalPrice = beverageService.calculateTotalPrice("[\"Chai, -sugar\", \"Chai\", \"Coffee, -milk, -mint\"]");
+		assertEquals(11.5, calculateTotalPrice, 0.0);
+	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidItemNametest() {
 		beverageService.calculateTotalPrice("Random, -sugar");
@@ -29,5 +41,7 @@ public class BeverageServiceTest {
 	public void invalidIngredientNametest() {
 		beverageService.calculateTotalPrice("Chai, -random");
 	}
+	
+	
 
 }
